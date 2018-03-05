@@ -7,6 +7,7 @@ new My_Slider();
 new My_Metabox();
 new My_Shortcode();
 new My_Taxonomy();
+new My_Weather();
 
 add_theme_support('post-thumbnails');
 
@@ -14,6 +15,11 @@ register_nav_menus(array(
 	'top'    => 'Верхнее меню',
 	'bottom' => 'Нижнее меню'
 ));
+
+function register_my_weather() {
+    register_widget( 'My_Weather' );
+}
+add_action( 'widgets_init', 'register_my_weather' );
 
 // Widgets
 add_action( 'widgets_init', 'register_my_widgets' );
@@ -115,8 +121,9 @@ add_action( 'widgets_init', 'register_my_widget' );
 
 // ---------------------------------------------------------------- //
 
-$resp = wp_remote_get( 'http://api.apixu.com/v1/current.json?key=ed4694f8f29a49e4b52122351180503&q=Kharkiv' );
-$res = json_decode($resp['body']);
-
-echo "Температура воздуха в городе <b>{$res->location->name}</b> сейчас <b>{$res->current->temp_c}</b>  градусов";
+//$resp = wp_remote_get( 'http://api.apixu.com/v1/current.json?key=ed4694f8f29a49e4b52122351180503&q=Kharkiv' );
+//var_dump($resp['body']);
+//$res = json_decode($resp['body']);
+//
+//echo "Температура воздуха в городе <b>{$res->location->name}</b> сейчас <b>{$res->current->temp_c}</b>  градусов";
 

@@ -2029,3 +2029,9 @@ pre {
 .right-sidebar a {
 	font-size: 16px;
 }
+
+.widget_text_weather {
+color: blue;
+	font-size: 16px;
+}
+
