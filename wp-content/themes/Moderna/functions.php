@@ -78,3 +78,45 @@ function register_my_widget() {
 }
 add_action( 'widgets_init', 'register_my_widget' );
 
+
+// ---------------------------------------------------------------- //
+
+//    $url = 'http://www.cbr.ru/scripts/XML_daily.asp';
+//    $expiration = DAY_IN_SECONDS / 2;
+//    $resp = wp_remote_get( $url );
+//
+//    if ( wp_remote_retrieve_response_code($resp) === 200 ) {
+//
+//        $body = wp_remote_retrieve_body( $resp );
+//
+//        $xml = simplexml_load_string($body);
+//        $data = json_decode(json_encode($xml));
+//
+//        $USD = wp_list_filter( $data->Valute, array('CharCode'=>'USD') );
+//        $USD = array_shift($USD);
+//
+//        $UAH = wp_list_filter( $data->Valute, array('CharCode'=>'UAH') );
+//        $UAH = array_shift($UAH);
+//
+//        $EUR = wp_list_filter( $data->Valute, array('CharCode'=>'EUR') );
+//        $EUR = array_shift($EUR);
+//
+//
+//        $usd_in_rub = $USD->Value;
+//        $usd_in_uah = $UAH->Value;
+//        $usd_in_eur = $EUR->Value;
+//
+//}
+//
+//echo '<h4>Курс доллара к рублю на сегодня: $1 = '. $usd_in_rub .' руб.</h4>';
+//echo '<h4>Курс доллара к гривне на сегодня: $1 = '. $usd_in_uah .' руб.</h4>';
+//echo '<h4>Курс доллара к Евро на сегодня: $1 = '. $usd_in_eur .' руб.</h4>';
+
+
+// ---------------------------------------------------------------- //
+
+$resp = wp_remote_get( 'http://api.apixu.com/v1/current.json?key=ed4694f8f29a49e4b52122351180503&q=Kharkiv' );
+$res = json_decode($resp['body']);
+
+echo "Температура воздуха в городе <b>{$res->location->name}</b> сейчас <b>{$res->current->temp_c}</b>  градусов";
+
