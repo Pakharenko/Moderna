@@ -2031,7 +2031,15 @@ pre {
 }
 
 .widget_text_weather {
-color: blue;
+color: #8647FF;
 	font-size: 16px;
+}
+
+.widgettitle {
+	color: #555;
+}
+.widget_text_weather img {
+	background: #8647FF;
+	border-radius: 50%;
 }
 
