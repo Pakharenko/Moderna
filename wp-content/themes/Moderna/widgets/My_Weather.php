@@ -13,7 +13,14 @@ class My_Weather extends WP_Widget {
     public function widget( $args, $instance ) {
 
         $city = $instance['title'];
-
+        $color_red = $instance['red'];
+?>
+        <?php if (!empty($color_red)): ?>
+            <style>.widget_text_weather {color: red;} .widget_text_weather img {background: red;}</style>
+        <?php else: ?>
+            <style>.widget_text_weather {color: blue;} .widget_text_weather img {background: blue;}</style>
+        <?php endif; ?>
+<?
         echo $args['before_widget'];
         if ( ! empty( $instance['title'] ) ) {
             echo $args['before_title'] . apply_filters( 'widget_title', 'Погода' ) . $args['after_title'];
@@ -35,12 +42,33 @@ class My_Weather extends WP_Widget {
     }
 
     public function form( $instance ) {
+
         $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Введите город', 'text_domain' );
+        $color_red = ! empty( $instance['red'] ) ? $instance['red'] : esc_html__( 'Введите цвет', 'text_red' );
+        $color_blue = ! empty( $instance['blue'] ) ? $instance['blue'] : esc_html__( 'Введите цвет', 'text_blue' );
+
+
         ?>
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Название города:', 'text_domain' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Название города:', 'text_color' ); ?></label>
+
             <input class="widefat" required id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
         </p>
+
+
+        <p>
+
+
+            <label for="<?php echo esc_attr( $this->get_field_id( 'options' ) ); ?>"><?php esc_attr_e( 'Выберите цвет виджета:', 'text_color' ); ?></label>
+
+
+            <input id="<?php echo esc_attr( $this->get_field_id( 'red' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'red' ) ); ?>" type="checkbox">Красный
+
+            <input id="<?php echo esc_attr( $this->get_field_id( 'blue' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'blue' ) ); ?>" type="checkbox" checked >Синий
+
+
+        </p>
+
         <?php
 
 
@@ -59,6 +87,8 @@ class My_Weather extends WP_Widget {
     public function update( $new_instance, $old_instance ) {
         $instance = array();
         $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        $instance['red'] = ( ! empty( $new_instance['red'] ) ) ? strip_tags( $new_instance['red'] ) : '';
+        $instance['blue'] = ( ! empty( $new_instance['blue'] ) ) ? strip_tags( $new_instance['blue'] ) : '';
 
         return $instance;
     }
